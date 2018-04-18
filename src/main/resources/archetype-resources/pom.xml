@@ -18,10 +18,12 @@
 		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<java.compiler.version>1.8</java.compiler.version>
 		<execution.jar.suffix>-exe</execution.jar.suffix>
+		<execution.exe.copyright>${groupId}</execution.exe.copyright>
 		<slf4j.version>1.7.25</slf4j.version>
 	</properties>
 
 	<dependencies>
+		<!-- Logging Library -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -47,6 +49,7 @@
 			<artifactId>jboss-logging</artifactId>
 			<version>3.3.2.Final</version>
 		</dependency>
+		<!-- Test Library -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -171,9 +174,9 @@
 										<!-- fileVersion must be 'n.n.n.n' -->
 										<fileVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${parsedVersion.buildNumber}</fileVersion>
 										<txtFileVersion>${project.version}</txtFileVersion>
-										<fileDescription>${project.name}</fileDescription>
-										<copyright>${project.groupId}</copyright>
-										<internalName>${project.groupId}</internalName>
+										<fileDescription>${project.description}</fileDescription>
+										<copyright>${execution.exe.copyright}</copyright>
+										<internalName>${project.name}</internalName>
 										<!-- The extension must be '.exe' -->
 										<originalFilename>${project.build.finalName}.exe</originalFilename>
 									</versionInfo>

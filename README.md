@@ -9,7 +9,7 @@ Maven archetype for executable jars by Capsule.
 ``` plain
 $ mvn archetype:generate \
     -DarchetypeGroupId=aviscaerulea \
-    -DarchetypeArtifactId=app-singleexecutablejar-archetype \
+    -DarchetypeArtifactId=executable-jar-archetype \
     -DarchetypeVersion=1.0.0 \
     -DgroupId=sample.app \
     -DartifactId=sample \
