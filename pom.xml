@@ -16,36 +16,25 @@
 		<java.compiler.version>1.8</java.compiler.version>
 	</properties>
 
-	<build>
+	<distributionManagement>
 		<!--
-		これでやっちゃうと生成した pom.xml の groupId, artifactId とかが指定したものにならないのは要対処。
-				<resources>
-					<resource>
-						<directory>src/main/resources/archetype-resources</directory>
-						<targetPath>${project.build.outputDirectory}/archetype-resources</targetPath>
-						<filtering>true</filtering>
-						<includes>
-							<include>pom.xml</include>
-						</includes>
-					</resource>
-					<resource>
-						<directory>src/main/resources/archetype-resources/src</directory>
-						<targetPath>${project.build.outputDirectory}/archetype-resources/src</targetPath>
-						<filtering>false</filtering>
-						<includes>
-							<include>**/*</include>
-						</includes>
-					</resource>
-					<resource>
-						<directory>src/main/resources/META-INF</directory>
-						<targetPath>${project.build.outputDirectory}/META-INF</targetPath>
-						<filtering>false</filtering>
-						<includes>
-							<include>**/*</include>
-						</includes>
-					</resource>
-				</resources>
+		<repository>
+			<id>some-repos</id>
+			<name>Some Maven Repository</name>
+			<url>scp://xxxxx.xxx.xxx/</url>
+		</repository>
 		-->
+	</distributionManagement>
+
+	<build>
+		<extensions>
+			<!-- For 'mvn deploy' by scp -->
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>3.0.0</version>
+			</extension>
+		</extensions>
 	</build>
 
 </project>
