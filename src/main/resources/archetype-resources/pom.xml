@@ -17,6 +17,7 @@
 		<encoding>UTF-8</encoding>
 		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<java.compiler.version>1.8</java.compiler.version>
+		<execution.jar.suffix>-exe</execution.jar.suffix>
 		<slf4j.version>1.7.25</slf4j.version>
 	</properties>
 
@@ -64,7 +65,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>${artifactId}-${version}-orginal</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -93,8 +93,8 @@
 						<configuration>
 							<type>fat</type>
 							<appClass>${groupId}.App</appClass>
-							<fileName>${artifactId}</fileName>
-							<fileDesc>-${version}</fileDesc>
+							<fileName>${project.build.finalName}</fileName>
+							<fileDesc>${execution.jar.suffix}</fileDesc>
 							<manifest>
 								<entry>
 									<key>JVM-Args</key>
@@ -104,7 +104,7 @@
 									<key>Application-Version</key>
 									<value>${version}</value>
 									<key>Min-Java-Version</key>
-									<value>${java.compiler.version}</value>
+									<value>${java.compiler.version}.0</value>
 								</entry>
 							</manifest>
 						</configuration>
@@ -113,5 +113,77 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<!-- For Windows Binary creation -->
+		<profile>
+			<id>winexe</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<!-- For '${parsedVersion.xxxxx}' in launch4j -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>3.0.0</version>
+						<executions>
+							<execution>
+								<id>parse-version</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>parse-version</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>com.akathist.maven.plugins.launch4j</groupId>
+						<artifactId>launch4j-maven-plugin</artifactId>
+						<version>1.7.21</version>
+						<executions>
+							<execution>
+								<id>console-exe</id>
+								<phase>package</phase>
+								<goals>
+									<goal>launch4j</goal>
+								</goals>
+								<configuration>
+									<headerType>console</headerType>
+									<jar>${project.build.directory}/${project.build.finalName}${execution.jar.suffix}.jar</jar>
+									<outfile>${project.build.directory}/${project.build.finalName}.exe</outfile>
+									<downloadUrl>http://java.com/download</downloadUrl>
+									<classPath>
+										<!-- Execution class by Capsule -->
+										<mainClass>Capsule</mainClass>
+									</classPath>
+									<jre>
+										<!-- minVersion must be 'n.n.n' -->
+										<minVersion>${java.compiler.version}.0</minVersion>
+										<jdkPreference>preferJre</jdkPreference>
+									</jre>
+									<versionInfo>
+										<productName>${project.name}</productName>
+										<!-- productVersion must be 'n.n.n.n' -->
+										<productVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${parsedVersion.buildNumber}</productVersion>
+										<txtProductVersion>${project.version}</txtProductVersion>
+										<!-- fileVersion must be 'n.n.n.n' -->
+										<fileVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.${parsedVersion.buildNumber}</fileVersion>
+										<txtFileVersion>${project.version}</txtFileVersion>
+										<fileDescription>${project.name}</fileDescription>
+										<copyright>${project.groupId}</copyright>
+										<internalName>${project.groupId}</internalName>
+										<!-- The extension must be '.exe' -->
+										<originalFilename>${project.build.finalName}.exe</originalFilename>
+									</versionInfo>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
