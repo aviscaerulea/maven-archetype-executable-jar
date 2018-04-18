@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2018 aviscaerulea. Licensed under the terms of the Apache 2.0 license. See LICENSE in the project root. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>jp.co.hcr</groupId>
+	<artifactId>app-singleexecutablejar-archetype</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<encoding>UTF-8</encoding>
+		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+		<java.compiler.version>1.8</java.compiler.version>
+	</properties>
+
+	<build>
+		<!--
+		これでやっちゃうと生成した pom.xml の groupId, artifactId とかが指定したものにならないのは要対処。
+				<resources>
+					<resource>
+						<directory>src/main/resources/archetype-resources</directory>
+						<targetPath>${project.build.outputDirectory}/archetype-resources</targetPath>
+						<filtering>true</filtering>
+						<includes>
+							<include>pom.xml</include>
+						</includes>
+					</resource>
+					<resource>
+						<directory>src/main/resources/archetype-resources/src</directory>
+						<targetPath>${project.build.outputDirectory}/archetype-resources/src</targetPath>
+						<filtering>false</filtering>
+						<includes>
+							<include>**/*</include>
+						</includes>
+					</resource>
+					<resource>
+						<directory>src/main/resources/META-INF</directory>
+						<targetPath>${project.build.outputDirectory}/META-INF</targetPath>
+						<filtering>false</filtering>
+						<includes>
+							<include>**/*</include>
+						</includes>
+					</resource>
+				</resources>
+		-->
+	</build>
+
+</project>
