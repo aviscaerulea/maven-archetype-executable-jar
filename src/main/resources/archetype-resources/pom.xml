@@ -20,13 +20,6 @@
 		<slf4j.version>1.7.25</slf4j.version>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>hcrc-repos</id>
-			<url>https://intra.hcr.co.jp/web/mvn-repos/</url>
-		</repository>
-	</repositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -56,7 +49,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>${artifactId}-${version}</finalName>
+		<finalName>${artifactId}-${version}-orginal</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -86,7 +79,7 @@
 							<type>fat</type>
 							<appClass>${groupId}.App</appClass>
 							<fileName>${artifactId}</fileName>
-							<fileDesc>-exe</fileDesc>
+							<fileDesc>-${version}</fileDesc>
 							<manifest>
 								<entry>
 									<key>JVM-Args</key>
